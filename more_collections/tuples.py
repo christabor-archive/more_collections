@@ -9,6 +9,12 @@ def n_tuple(argcount):
     """Return a new function to generate an n-tuple with.
 
     That works only if the specified arity is met when called.
+
+    >>> vec3 = n_tuple(3)
+    >>> coords = vec3(100, 20, 30)
+
+    But this throws an error:
+    >>> coords = vec3(10, 20)
     """
     def _tuple(*someargs):
         if len(someargs) != argcount:
@@ -27,6 +33,12 @@ def typedtuple(*typesig):
     """Return a new function to generate an n-tuple with.
 
     That works only if the entire type signature is identical when called.
+
+    >>> Somefoo = typedtuple([int, list, float, str])
+    >>> foo = Somefoo(3, [1, 2], 0.3, 'hello')
+
+    But this throws an error:
+    >>> foo = Somefoo(3, None, 0.3, 'hello')
     """
     def _tuple(*someargs):
         if len(someargs) != len(typesig):
@@ -66,6 +78,7 @@ def typednamedtuple(name, props, typesig):
     This usage:
     >>> Person = namedtypedtuple('Person', ['name', 'age'], [str, int])
     >>> person = Person('Chris', 32)
+
     but this throws ValueError:
     >>> person = Person('Chris', '32')
     """
