@@ -3,6 +3,20 @@ from more_collections import lists
 import pytest
 
 
+def test_typedlist_init():
+    tlist = lists.typedlist(int)
+    mylist = tlist([3, 3, 3])
+    assert mylist[0] == 3
+    assert mylist[1] == 3
+    assert mylist[2] == 3
+
+
+def test_typedlist_init_invalid():
+    tlist = lists.typedlist(int)
+    with pytest.raises(ValueError):
+        tlist(['3', '3', '3'])
+
+
 def test_typedlist_append():
     tlist = lists.typedlist(int)
     mylist = tlist()
